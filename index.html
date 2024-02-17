@@ -7,6 +7,7 @@
         <script src="script.js" type="text/javascript" defer></script>
         <link href="style.css" rel="stylesheet">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:500">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     </head>
     <body>
         <header>
@@ -16,14 +17,30 @@
             <div class="grid-container" id="gridContainer">
                 <!-- This should be filled using the js file -->
             </div>
+            
             <div class="right-panel" id="tools">
-                <button id="currentColor"></button>
-                <button id="rainbowColor"><img src="icons/rainbow.png" alt="rainbow"></button>
-                <button id="eraserTool"><img src="icons/eraser.png" alt="eraser"></button>
-                <button id="blurTool"><img src="icons/blur.png" alt="blur"></button>
-                <button id="gridSelecter"><img src="icons/grid.png" alt="grid"></button>
+                <input title="Current Color" type="color" id="currentColor">
+                <button title="Rainbow Color" id="rainbowColor">
+                    <img src="icons/rainbow.png" alt="rainbow">
+                </button>
+                <button title="Eraser" id="eraserTool">
+                    <img src="icons/eraser.png" alt="eraser">
+                </button>
+                <button title="Blur" id="blurTool">
+                    <img src="icons/blur.png" alt="blur">
+                </button>
+                <button title="Grid" id="gridSelecter">
+                    <img src="icons/grid.png" alt="grid">
+                </button>
             </div>
         </main>
-        <footer></footer>
+        <footer>
+            ©
+            <script>document.write(new Date().getFullYear())</script>
+            by Mazine Ezzamita
+            <a href="https://www.github.com/MazineEZZ" target="_blank">
+                <img class="github-icon" src="icons/github(1).png">
+            </a>
+        </footer>
     </body>
 </html>

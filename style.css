@@ -9,13 +9,18 @@ body {
     color: #e6eaef;
 
     /* Display */
+    margin: 0px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: hidden;
 }
 
 /* HEADER */
-header .title {font-size: 40px}
+header .title {
+    font-size: 40px;
+    margin: 16px;
+}
 
 /* MAIN */
 main {
@@ -25,9 +30,17 @@ main {
 
 .grid-container {
     background-color: #e6eaef;
-    width: 768px; /* 64 * 12 = 768 */
-    height: 512px; /* 64 * 8 = 512 */
     border-radius: 10px;
+    display: flex;
+}
+
+.grid-container .pixelContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.grid-container .pixel {
+    border: 1px solid black;
 }
 
 .right-panel {
@@ -41,22 +54,51 @@ main {
     gap: 20px;
 }
 
-.right-panel button {
+.right-panel button,.right-panel input {
     flex: 1;
     border: none;
     border-radius: 10px;
     background-color: #a8a8a8;
     opacity: 0.6;
+    width: 80px;
     transition: 0.3s;
 }
 
 .right-panel #currentColor {
     border: 3px solid #a8a8a8;
-    background-color: rgb(45, 45, 158);
 }
 
-.right-panel button:hover {opacity: 1}
+.right-panel button {
+    align-self: center;
+}
 
-.right-panel button img {width: 64px}
+.right-panel input {
+    width: auto;
+}
+
+.right-panel button:hover, .right-panel input:hover {
+    opacity: 1;
+}
+
+.right-panel button:hover {
+    width: 86px;
+}
+
+.right-panel button img {
+    width: 64px
+}
 
 /* FOOTER */
+footer {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+footer .github-icon {
+    width: 24px;
+    transition: 0.3s;
+}
+footer .github-icon:hover {
+    rotate: 360deg;
+}
