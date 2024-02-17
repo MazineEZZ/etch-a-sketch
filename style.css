@@ -1,0 +1,35 @@
+:root {
+    /* Add variables */
+}
+body {
+    /* Fonts & Colors */
+    background-color: #0c1014;
+    font-family: 'Roboto';
+    color: #e6eaef;
+
+    /* Display */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+/* HEADER */
+
+
+/* MAIN */
+main {
+    display: flex;
+    gap: 64px;
+}
+
+.grid-container {
+    background-color: #e6eaef;
+    width: 768px; /* 64 * 12 = 768 */
+    height: 512px; /* 64 * 8 = 512 */
+    border-radius: 10px;
+}
+
+.right-panel {
+    background-color: ;
+    display: flex;
+    flex-direction: column;
+}
