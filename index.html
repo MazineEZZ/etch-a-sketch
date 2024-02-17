@@ -14,6 +14,17 @@
             <h1 class="title">Etch A Sketch</h1>
         </header>
         <main>
+            <!-- Change Grid Modal -->
+            <dialog id="modal" class="modal-container">
+                <h3>Select a grid</h3>
+                <select id="modalGridSelector">
+                    <option selected>16x16</option>
+                    <option>32x32</option>
+                    <option>64x64</option>
+                </select>
+                <button id="submitModal">Submit</button>
+            </dialog>
+
             <div class="grid-container" id="gridContainer">
                 <!-- This should be filled using the js file -->
             </div>
@@ -29,7 +40,7 @@
                 <button title="Blur" id="blurTool">
                     <img src="icons/blur.png" alt="blur">
                 </button>
-                <button title="Grid" id="gridSelecter">
+                <button title="Grid" id="gridBtn">
                     <img src="icons/grid.png" alt="grid">
                 </button>
             </div>
