@@ -1,6 +1,7 @@
 :root {
     /* Add variables */
 }
+
 body {
     /* Fonts & Colors */
     background-color: #0c1014;
@@ -12,13 +13,14 @@ body {
     flex-direction: column;
     align-items: center;
 }
-/* HEADER */
 
+/* HEADER */
+header .title {font-size: 40px}
 
 /* MAIN */
 main {
     display: flex;
-    gap: 64px;
+    gap: 32px;
 }
 
 .grid-container {
@@ -29,7 +31,32 @@ main {
 }
 
 .right-panel {
-    background-color: ;
+    background-color: #2b2c2e;
+    padding: 20px;
+    width: 120px;
+    box-sizing: border-box;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
+    gap: 20px;
 }
+
+.right-panel button {
+    flex: 1;
+    border: none;
+    border-radius: 10px;
+    background-color: #a8a8a8;
+    opacity: 0.6;
+    transition: 0.3s;
+}
+
+.right-panel #currentColor {
+    border: 3px solid #a8a8a8;
+    background-color: rgb(45, 45, 158);
+}
+
+.right-panel button:hover {opacity: 1}
+
+.right-panel button img {width: 64px}
+
+/* FOOTER */
