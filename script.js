@@ -3,7 +3,6 @@ const gridContainer = document.getElementById("gridContainer");
 const colorPickerInput = document.getElementById("currentColor");
 const tools = document.getElementById("tools");
 
-
 const GRID_ROWS = 46;
 const GRID_COLS = 28;
 const PIXEL_SIZE = 16;
@@ -34,7 +33,7 @@ Array.from(tools.children).forEach(child => {
     }
 });
 
-// Function that toggles a tool and deactives the other activated tools
+//* Function that toggles a tool and deactives the other activated tools
 function toggleCurrentTool(event) {
     var currentTool = event.currentTarget;
 
@@ -45,10 +44,9 @@ function toggleCurrentTool(event) {
     } else if (currentTool.id === "blurTool") {
         changeToolState("darkningEffect", event);
     }
-    console.log(toolsObject);
 }
 
-// Function to toggle between rainbowfy states
+//* Function to toggle between rainbowfy states
 function changeToolState(state, event) {
     // Toggle states
     toolsObject[state] = (toolsObject[state]) ? false: true;
@@ -60,7 +58,7 @@ function changeToolState(state, event) {
     changeBackgroundColor(event.currentTarget, backgroundColor);
 }
 
-// Function to deactive all the other tools
+//* Function to deactive all the other tools
 function deactivateTools(state, color) {
     for (let tool in toolsObject) {
         if (tool !== state) {
@@ -74,7 +72,7 @@ function deactivateTools(state, color) {
     });
 }
 
-// Function to fill the grid with pixels
+//* Function to fill the grid with pixels
 function fillGrid(rows, cols, size) {
     for (let row = 0; row < rows; row++) {
         let pixelContainer = document.createElement("div");
@@ -86,6 +84,7 @@ function fillGrid(rows, cols, size) {
             // Adjust each pixels
             pixel.style.width = `${size}px`;
             pixel.style.height = `${size}px`;
+            changeBackgroundColor(pixel, "#ffffff");
 
             pixel.addEventListener("mouseover", (e) => {
                 if (mouseDown) {
@@ -104,17 +103,44 @@ function fillGrid(rows, cols, size) {
     }
 }
 
-// Function to change the color of a pixel
+//* Function to change the color of a pixel
 function changePixelColor(event) {
-    if (rainbowfy) {
-        var color = getRandomColor(210)
-    } else {
-        var color = colorPickerInput.value;
+    let color = colorPickerInput.value;
+    if (toolsObject["rainbowfy"]) {
+        color = getRandomColor(210);
+    } else if (toolsObject["eraser"]) {
+        color = "white";
+    } else if (toolsObject["darkningEffect"]) {
+        color = getDarkningEffect(event.currentTarget.style.backgroundColor, 10)
     }
     changeBackgroundColor(event.currentTarget, color);
+
 }
 
-// Function that returns a random color
+//* Function that darkens the pixel
+function getDarkningEffect(currentColor, percentage) {
+    let rgb = getRGB(currentColor);
+
+    // Darken each pixel
+    rgb = rgb.map((color) => color - (color * (percentage/100)));
+
+    return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`
+}
+
+//* Function that returns a hexa value from rgb
+function getRGB(rgbString) {
+    // Extract RGB components from the string
+    const components = rgbString.match(/\d+/g);
+
+    // Convert components to integers
+    const r = parseInt(components[0]);
+    const g = parseInt(components[1]);
+    const b = parseInt(components[2]);
+
+    return [r, g, b];
+}
+
+//* Function that returns a random color
 function getRandomColor(maxColorRange) {
     let red = Math.floor(Math.random() * maxColorRange);
     let green = Math.floor(Math.random() * maxColorRange);
@@ -122,10 +148,9 @@ function getRandomColor(maxColorRange) {
     return `rgb(${red}, ${green}, ${blue})`;
 }
 
+//* Function to change the bg color
 function changeBackgroundColor(element, color) {
     element.style.background = color;
 }
-
-console.log()
 
 fillGrid(GRID_ROWS, GRID_COLS, PIXEL_SIZE);

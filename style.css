@@ -29,17 +29,20 @@ main {
 }
 
 .grid-container {
+    user-select: none;
     background-color: #e6eaef;
     border-radius: 10px;
     display: flex;
 }
 
 .grid-container .pixelContainer {
+    user-select: none;
     display: flex;
     flex-direction: row;
 }
 
 .grid-container .pixel {
+    user-select: none;
     border: 1px solid black;
 }
 
