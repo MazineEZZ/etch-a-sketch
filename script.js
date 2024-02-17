@@ -1,27 +1,57 @@
-const colorPickerInput = document.getElementById("currentColor");
+// Global variables
 const gridContainer = document.getElementById("gridContainer");
+const colorPickerInput = document.getElementById("currentColor");
+const rainbowTool = document.getElementById("rainbowTool");
 
-// Function to fill the grid by divs
+const GRID_ROWS = 46;
+const GRID_COLS = 28;
+const PIXEL_SIZE = 16;
+
+let mouseDown = false;
+let mouseOver = false;
+let rainbowfy = false;
+
+// Event listeners
+document.addEventListener("mouseup", () => {
+    mouseDown = false;
+});
+
+document.addEventListener("mouseleave", () => {
+    mouseDown = false;
+});
+
+rainbowTool.addEventListener("click", (e) => {
+    toggleRainbowTool(e);
+});
+
+// Function to toggle between rainbowfy states
+function toggleRainbowTool(event) {
+    rainbowfy = (rainbowfy) ? false : true;
+    event.currentTarget.style.backgroundColor = (rainbowfy) ? "#49bdf3" : "#a8a8a8";
+}
+
+// Function to fill the grid with pixels
 function fillGrid(rows, cols, size) {
     for (let row = 0; row < rows; row++) {
-        // This Container represents each row of the grid
         let pixelContainer = document.createElement("div");
-        pixelContainer.id = "pixelContainer";
         pixelContainer.classList.add("pixel-container");
 
         for (let col = 0; col < cols; col++) {
-            // Each pixel represents a column for a row in the grid
             let pixel = document.createElement("div");
-            pixel.id = "pixel";
             pixel.classList.add("pixel");
+            // Adjust each pixels
+            pixel.style.width = `${size}px`;
+            pixel.style.height = `${size}px`;
 
-            // Adjust the size of the pixel
-            pixel.style.width = `${size}px`
-            pixel.style.height = `${size}px`
+            pixel.addEventListener("mouseover", (e) => {
+                if (mouseDown) {
+                    changePixelColor(e);
+                }
+            });
 
-            // Add an event listener
-            pixel.addEventListener("click", (e) => {
-                changePixelColor(e)
+            pixel.addEventListener("mousedown", (e) => {
+                mouseDown = true;
+                changePixelColor(e);
             });
 
             pixelContainer.appendChild(pixel);
@@ -32,10 +62,22 @@ function fillGrid(rows, cols, size) {
 
 // Function to change the color of a pixel
 function changePixelColor(event) {
-    console.log(event);
-    let color = colorPickerInput.value;
+    if (rainbowfy) {
+        var color = getRandomColor(210)
+    } else {
+        var color = colorPickerInput.value;
+    }
     event.target.style.background = color;
 }
 
+// Function that returns a random color
+function getRandomColor(maxColorRange) {
+    let red = Math.floor(Math.random() * maxColorRange);
+    let green = Math.floor(Math.random() * maxColorRange);
+    let blue = Math.floor(Math.random() * maxColorRange);
+    return `rgb(${red}, ${green}, ${blue})`;
+}
 
-fillGrid(46, 28, 16);
+console.log()
+
+fillGrid(GRID_ROWS, GRID_COLS, PIXEL_SIZE);
