@@ -1,5 +1,7 @@
 # Etch-a-sketch
 
+![Preview](https://github.com/MazineEZZ/etch-a-sketch/blob/main/assets/preview2.gif)
+
 Welcome to Etch-a-sketch, This website was solely made for the odin project assignement. It has a wide range of super helpful features, and I'd recommend you give it a try on this demo [Live demo](https://mazineezz.github.io/etch-a-sketch/).
 
 ## Features
@@ -12,8 +14,6 @@ Welcome to Etch-a-sketch, This website was solely made for the odin project assi
 - **Grid selecter**: this lets you change the canvas size.
 
 ## Get Started.
-
-![[https://github.com/MazineEZZ/etch-a-sketch/blob/main/assets/preview.gif]]
 
 - **Start Drawing**: Just start drawing dude...
 
