@@ -1,5 +1,5 @@
 // Global variables
-const gridContainer = document.getElementById("gridContainer");
+const canvasContainer = document.getElementById("canvasContainer");
 const colorPickerInput = document.getElementById("currentColor");
 const tools = document.getElementById("tools");
 const changeGridBtn = document.getElementById("gridBtn");
@@ -56,7 +56,7 @@ function toggleCurrentTool(event) {
         changeToolState("rainbowfy", event);
     } else if (currentTool.id === "eraserTool") {
         changeToolState("eraser", event);
-    } else if (currentTool.id === "blurTool") {
+    } else if (currentTool.id === "darkeningEffectTool") {
         changeToolState("darkeningEffect", event);
     }
 }
@@ -93,7 +93,6 @@ function deactivateTools(state, color) {
 function fillGrid(rows, cols, size) {
     for (let row = 0; row < rows; row++) {
         let pixelsContainer = document.createElement("div");
-        pixelsContainer.classList.add("pixel-container");
         
         for (let col = 0; col < cols; col++) {
             let pixel = document.createElement("div");
@@ -117,21 +116,21 @@ function fillGrid(rows, cols, size) {
             
             pixelsContainer.appendChild(pixel);
         }
-        gridContainer.appendChild(pixelsContainer);
+        canvasContainer.appendChild(pixelsContainer);
     }
 }
 
 //* Function to remove the GRID
 function removeGrid() {
-    gridContainer.innerHTML = "";
+    canvasContainer.innerHTML = "";
 }
 
 //* Function to round the corners of the grid
 function roundGrid(rows, cols) {
-    gridContainer.children[0].children[0].style.borderTopLeftRadius = "10px";
-    gridContainer.children[rows-1].children[0].style.borderTopRightRadius = "10px";
-    gridContainer.children[0].children[cols-1].style.borderBottomLeftRadius = "10px";
-    gridContainer.children[rows-1].children[cols-1].style.borderBottomRightRadius = "10px";
+    canvasContainer.children[0].children[0].style.borderTopLeftRadius = "10px";
+    canvasContainer.children[rows-1].children[0].style.borderTopRightRadius = "10px";
+    canvasContainer.children[0].children[cols-1].style.borderBottomLeftRadius = "10px";
+    canvasContainer.children[rows-1].children[cols-1].style.borderBottomRightRadius = "10px";
 }
 
 //* Function to change the grid cols and rows

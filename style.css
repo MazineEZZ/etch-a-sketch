@@ -50,19 +50,19 @@ main {
     border-radius: 5px;
 }
 
-.grid-container {
+.canvas-container {
     user-select: none;
     border-radius: 10px;
     display: flex;
 }
 
-.grid-container .pixelContainer {
+.canvas-container .pixel-container {
     user-select: none;
     display: flex;
     flex-direction: row;
 }
 
-.grid-container .pixel {
+.canvas-container .pixel {
     user-select: none;
     border: 1px solid black;
 }
