@@ -7,17 +7,16 @@ const modal = document.getElementById("modal");
 const submitModalBtn = document.getElementById("submitModal");
 const gridSelector = document.getElementById("modalGridSelector");
 
-// Default configuration
-let GRID_ROWS = 46;
-let GRID_COLS = 28;
-let PIXEL_SIZE = 16;
+let GRID_ROWS;
+let GRID_COLS;
+let PIXEL_SIZE;
 
 let mouseDown = false;
 let mouseOver = false;
 let toolsObject = {
     rainbowfy: false,
     eraser: false,
-    darkningEffect: false,
+    darkeningEffect: false,
 }
 
 // Event listeners
@@ -58,14 +57,14 @@ function toggleCurrentTool(event) {
     } else if (currentTool.id === "eraserTool") {
         changeToolState("eraser", event);
     } else if (currentTool.id === "blurTool") {
-        changeToolState("darkningEffect", event);
+        changeToolState("darkeningEffect", event);
     }
 }
 
 //* Function to toggle between tool states
 function changeToolState(state, event) {
     // Toggle states
-    toolsObject[state] = (toolsObject[state]) ? false: true;
+    toolsObject[state] = !toolsObject[state];
     
     // Deactivate other tools
     deactivateTools(state, "#a8a8a8");
@@ -93,8 +92,8 @@ function deactivateTools(state, color) {
 //* Function to fill the grid with pixels
 function fillGrid(rows, cols, size) {
     for (let row = 0; row < rows; row++) {
-        let pixelContainer = document.createElement("div");
-        pixelContainer.classList.add("pixel-container");
+        let pixelsContainer = document.createElement("div");
+        pixelsContainer.classList.add("pixel-container");
         
         for (let col = 0; col < cols; col++) {
             let pixel = document.createElement("div");
@@ -116,15 +115,15 @@ function fillGrid(rows, cols, size) {
                 changePixelColor(e);
             });
             
-            pixelContainer.appendChild(pixel);
+            pixelsContainer.appendChild(pixel);
         }
-        gridContainer.appendChild(pixelContainer);
+        gridContainer.appendChild(pixelsContainer);
     }
 }
 
 //* Function to remove the GRID
 function removeGrid() {
-    Array.from(gridContainer.children).forEach((child) => gridContainer.removeChild(child));
+    gridContainer.innerHTML = "";
 }
 
 //* Function to round the corners of the grid
@@ -137,18 +136,24 @@ function roundGrid(rows, cols) {
 
 //* Function to change the grid cols and rows
 function changeGridValues(gridValue) {
-    if (gridValue === "64x64") {
-        GRID_ROWS = 12;
-        GRID_COLS = 8;
-        PIXEL_SIZE = 64;
-    } else if (gridValue === "32x32") {
-        GRID_ROWS = 24;
-        GRID_COLS = 15;
-        PIXEL_SIZE = 32;
-    } else if (gridValue === "16x16") {
-        GRID_ROWS = 46;
-        GRID_COLS = 28;
-        PIXEL_SIZE = 16;
+    switch (gridValue) {
+        case "64x64":
+            GRID_ROWS = 12;
+            GRID_COLS = 8;
+            PIXEL_SIZE = 64;
+            break;
+        case "32x32":
+            GRID_ROWS = 24;
+            GRID_COLS = 15;
+            PIXEL_SIZE = 32;
+            break;
+        case "16x16":
+            GRID_ROWS = 46;
+            GRID_COLS = 28;
+            PIXEL_SIZE = 16;
+            break;
+        default:
+            break;
     }
 }
 
@@ -158,35 +163,28 @@ function changePixelColor(event) {
     if (toolsObject["rainbowfy"]) {
         color = getRandomColor(210);
     } else if (toolsObject["eraser"]) {
-        color = "white";
-    } else if (toolsObject["darkningEffect"]) {
-        color = getDarkningEffect(event.currentTarget.style.backgroundColor, 10)
+        color = "rgb(255, 255, 255)";
+    } else if (toolsObject["darkeningEffect"]) {
+        color = getDarkeningEffect(event.currentTarget.style.backgroundColor, 10)
     }
     changeBackgroundColor(event.currentTarget, color);
     
 }
 
 //* Function that darkens the pixel
-function getDarkningEffect(currentColor, percentage) {
+function getDarkeningEffect(currentColor, percentage) {
     let rgb = getRGB(currentColor);
     
-    // Darken each pixel
-    rgb = rgb.map((color) => color - (color * (percentage/100)));
+    // Darken each color
+    const darkenedRGB = rgb.map((color) => color - (color * (percentage/100)));
     
-    return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`
+    return `rgb(${darkenedRGB.join(", ")})`
 }
 
-//* Function that returns a hexa value from rgb
+//* Function that returns a list of rgb values
 function getRGB(rgbString) {
     // Extract RGB components from the string
-    const components = rgbString.match(/\d+/g);
-    
-    // Convert components to integers
-    const r = parseInt(components[0]);
-    const g = parseInt(components[1]);
-    const b = parseInt(components[2]);
-    
-    return [r, g, b];
+    return rgbString.match(/\d+/g).map(color => parseInt(color));
 }
 
 //* Function that returns a random color
@@ -208,4 +206,5 @@ function makeGrid(rows, cols, size) {
     roundGrid(rows, cols);
 }
 
+changeGridValues("32x32");
 makeGrid(GRID_ROWS, GRID_COLS, PIXEL_SIZE);
